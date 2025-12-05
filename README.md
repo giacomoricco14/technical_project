@@ -89,6 +89,9 @@ ros2 launch bcr_bot nav2.launch.py
 1. Gz Sim (Ignition Gazebo) (small_warehouse World):
 	![](res/gz.jpg)
 	
+2. Rviz (Depth camera) (small_warehouse World):
+	![](res/rviz.jpg)
+	
 
 ### Test and Simulation
 To run the 2 robots simultaneously, first a quick setup:
@@ -125,5 +128,4 @@ ros2 launch bcr_bot bcr_bot_ign_spawn.launch.py     position_x:=1.2     position
 	
 	
 
-3. Rviz (Depth camera) (small_warehouse World):
-	![](res/rviz.jpg)
+
