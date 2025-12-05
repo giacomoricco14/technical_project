@@ -98,7 +98,7 @@ To run the 2 robots simultaneously, first a quick setup:
 
 ```bash
 colcon build
-. install setup/bash
+. install/setup.bash
 export IGN_GAZEBO_RESOURCE_PATH=/home/user/ros2_ws/src/ros2_iiwa/models
 ```	
 
