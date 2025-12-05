@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot name="iiwa_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Includi la definizione della macro -->
+  <xacro:include filename="$(find ros2_iiwa)/urdf/iiwa_macro.xacro"/>
+
+  <!-- Istanzia la macro -->
+  <xacro:iiwa 
+      parent="world" 
+      prefix="" 
+      origin="0 0 0 0 0 0"/>
+
+</robot>
