@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="receptacle_box">
+    <static>true</static>
+    <link name="link">
+      <pose>0 0 0 0 0 0</pose>
+
+      <collision name="base_collision">
+        <pose>0 0 0.025 0 0 0</pose> 
+        <geometry>
+          <box>
+            <size>0.6 0.6 0.05</size> 
+          </box>
+        </geometry>
+      </collision>
+      <visual name="base_visual">
+        <pose>0 0 0.025 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.6 0.6 0.05</size>
+          </box>
+        </geometry>
+       <material>
+          <ambient>0.2 0.2 0.2 1</ambient>
+          <diffuse>0.2 0.2 0.2 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular> 
+        </material>
+      </visual>
+
+      <collision name="wall1_collision">
+        <pose>0.29 0 0.15 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.02 0.6 0.3</size> 
+          </box>
+        </geometry>
+      </collision>
+      <visual name="wall1_visual">
+        <pose>0.29 0 0.15 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.02 0.6 0.3</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.6 0.4 0.2 1</ambient>
+          <diffuse>0.6 0.4 0.2 1</diffuse>
+        </material>
+      </visual>
+
+      <collision name="wall2_collision">
+        <pose>-0.29 0 0.15 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.02 0.6 0.3</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="wall2_visual">
+        <pose>-0.29 0 0.15 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.02 0.6 0.3</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.6 0.4 0.2 1</ambient>
+          <diffuse>0.6 0.4 0.2 1</diffuse>
+        </material>
+      </visual>
+
+      <collision name="wall3_collision">
+        <pose>0 0.29 0.15 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.56 0.02 0.3</size> 
+          </box>
+        </geometry>
+      </collision>
+      <visual name="wall3_visual">
+        <pose>0 0.29 0.15 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.56 0.02 0.3</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.6 0.4 0.2 1</ambient>
+          <diffuse>0.6 0.4 0.2 1</diffuse>
+        </material>
+      </visual>
+
+      <collision name="wall4_collision">
+        <pose>0 -0.29 0.15 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.56 0.02 0.3</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="wall4_visual">
+        <pose>0 -0.29 0.15 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.56 0.02 0.3</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.6 0.4 0.2 1</ambient>
+          <diffuse>0.6 0.4 0.2 1</diffuse>
+        </material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>
