@@ -1,43 +1,3 @@
-## Humble + Fortress (Ubuntu 22.04)
-
-### Dependencies
-
-In addition to ROS2 Humble and [Gazebo Fortress installations](https://gazebosim.org/docs/fortress/install_ubuntu), we need to manually install interfaces between ROS2 and Gazebo sim as follows,
-
-```bash
-sudo apt-get install ros-humble-ros-gz-sim ros-humble-ros-gz-bridge ros-humble-ros-gz-interfaces 
-```
-Remainder of the dependencies can be installed with [rosdep](http://wiki.ros.org/rosdep)
-
-```bash
-# From the root directory of the workspace. This will install everything mentioned in package.xml
-rosdep install --from-paths src --ignore-src -r -y
-```
-
-### Source Build
-
-```bash
-colcon build --packages-select bcr_bot
-```
-
-### Binary Install
-To install BCR bot in the binaries:
-
-```bash
-sudo apt-get install ros-humble-bcr-bot
-```
-
-### Run
-
-To launch the robot in Gazebo,
-```bash
-ros2 launch bcr_bot ign.launch.py
-```
-To view in rviz,
-```bash
-ros2 launch bcr_bot rviz.launch.py
-```
-
 ### Configuration
 
 The launch file accepts multiple launch arguments,
@@ -46,16 +6,13 @@ ros2 launch bcr_bot ign.launch.py \
 	camera_enabled:=True \
 	stereo_camera_enabled:=False \
 	two_d_lidar_enabled:=True \
-	position_x:=0.0 \
+	position_x:=-1.5 \
 	position_y:=0.0  \
 	orientation_yaw:=0.0 \
 	odometry_source:=world \
 	world_file:=small_warehouse.sdf
 ```
-**Note:** To use stereo_image_proc with the stereo images excute following command: 
-```bash
-ros2 launch stereo_image_proc stereo_image_proc.launch.py left_namespace:=bcr_bot/stereo_camera/left right_namespace:=bcr_bot/stereo_camera/right
-```
+
 ### Mapping with SLAM Toolbox
 
 SLAM Toolbox is an open-source package designed to map the environment using laser scans and odometry, generating a map for autonomous navigation.
@@ -76,53 +33,80 @@ cd src/bcr_bot/config
 ros2 run nav2_map_server map_saver_cli -f bcr_map
 ```
 
-### Using Nav2 with bcr_bot
+### COOPERATIVE TASK
 
-Nav2 is an open-source navigation package that enables a robot to navigate through an environment easily. It takes laser scan and odometry data, along with the map of the environment, as inputs.
-
-To run Nav2 on bcr_bot:
-```bash
-ros2 launch bcr_bot nav2.launch.py
-```
-
-### Visualization
-1. Gz Sim (Ignition Gazebo) (small_warehouse World):
-	![](res/gz.jpg)
-	
-2. Rviz (Depth camera) (small_warehouse World):
-	![](res/rviz.jpg)
-	
-
-### Test and Simulation
-To run the 2 robots simultaneously, first a quick setup:
+#STEP 0: Setting up
 
 ```bash
+sudo apt update
+sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup ros-humble-nav2-rviz-plugins -y
 colcon build
 . install/setup.bash
-export IGN_GAZEBO_RESOURCE_PATH=/home/user/ros2_ws/src/ros2_iiwa/models
-```	
-
-Then, start the iiwa robot in gazebo:
-
-
-```bash
-ros2 launch ros2_iiwa ign.launch.py
-```	
-
-From another terminal, spawn the bcr_bot in gazebo so that they don't overlap (using arguments):
-
-```bash
-ros2 launch bcr_bot bcr_bot_ign_spawn.launch.py     position_x:=1.2     position_y:=-0.5     orientation_yaw:=1.57
 ```
 
+#STEP 1: Executing all nodes
+First of all, open a terminal and start the differential drive robot in the world:
 
+```
+ros2 launch bcr_bot ign.launch.py \
+	camera_enabled:=True \
+	stereo_camera_enabled:=False \
+	two_d_lidar_enabled:=True \
+	position_x:=-2.5  \
+	position_y:=0.0  \
+	orientation_yaw:=0.0 \
+	odometry_source:=world \
+	world_file:=small_warehouse.sdf
+```	
+
+Start the iiwa robot (with the controllers) in another shell and spawn it in Gazebo:
+
+```bash
+. install/setup.bash
+export IGN_GAZEBO_RESOURCE_PATH=/home/user/ros2_ws/src/ros2_iiwa/iiwa_description/models
+ros2 launch iiwa_bringup iiwa.launch.py command_interface:="velocity" robot_controller:="velocity_controller"
+```
+
+Then in another terminal, the kdl_package (with the velocity_ctrl_null) is launched:
+
+```bash
+. install/setup.bash
+ros2 launch ros2_kdl_package ros2_kdl.launch.py cmd_interface:=velocity_ctrl_null
+```
+
+Then in another terminal, the node responsible for navigation (Nav2) is launched:	
+
+```bash
+. install/setup.bash
+ros2 launch bcr_bot nav2.launch.py
+```	
+
+
+Then in another terminal, the node that spawns dynamically an obstacle is launched:	
+
+```bash
+. install/setup.bash
+cd src/my-final-project/bcr_bot/scripts
+python3 ostacolo_dinamico.py
+```	
 	
+Then in another terminal, the node that starts the motion of the differential drive robot is launched:	
+
+```bash
+. install/setup.bash
+cd src/my-final-project/bcr_bot/scripts
+python3 back_and_forth.py
+```	
 	
-	
-	
-	
-	
-	
+Then in another terminal, the node that handles the visual coordination and pick and place task is launched:	
+
+```bash
+. install/setup.bash
+cd src/my-final-project/bcr_bot/scripts
+python3 visual_coordinator.py
+```		
+
+
 	
 	
 	
