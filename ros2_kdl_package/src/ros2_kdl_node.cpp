@@ -201,13 +201,13 @@ class Iiwa_pub_sub : public rclcpp::Node
             case DROPPING:
                 p_.pos = place_position_; p_.vel.setZero(); hold_time_ += dt;
                 
-                if (hold_time_ >= 2.0 && hold_time_ < 2.1) {
+                if (hold_time_ >= 3.0 && hold_time_ < 3.1) {
                     std_msgs::msg::Empty grip_msg; 
                     gripperDetachPub_->publish(grip_msg);
                     RCLCPP_INFO(this->get_logger(), "*Swoosh* Cubo Rilasciato!");
                 }
 
-                if (hold_time_ >= 4.0) { 
+                if (hold_time_ >= 5.0) { 
                     planner_ = KDLPlanner(traj_duration, acc_duration, place_position_, place_waypoint_);
                     t_ = 0.0; motion_state_ = RETURN_WAYPOINT; 
                 }

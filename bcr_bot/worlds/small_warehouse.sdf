@@ -157,29 +157,13 @@
         </include>
         <pose frame="">-1.2196 9.407 -0.015663 0 0 1.563871</pose>
 	</model>
-
-     <model name='aws_robomaker_warehouse_ClutteringD_01_005'>
-        <include>
-            <uri>model://aws_robomaker_warehouse_ClutteringD_01</uri>
-        </include>
-        <pose frame=''>-1.634682 -7.811813 -0.319559 0 0 0</pose>
-	</model>
                                                  
       <model name='aws_robomaker_warehouse_TrashCanC_01_002'>
         <include>
             <uri>model://aws_robomaker_warehouse_TrashCanC_01</uri>
         </include>
-        <pose frame=''>-1.592441 7.715420 0 0 0 0</pose>
+        <pose frame=''>-1.2 7.715420 0 0 0 0</pose>
 	</model>
-
-
-      <!-- <model name='aws_robomaker_warehouse_PalletJackB_01_001'>
-        <include>
-            <uri>model://aws_robomaker_warehouse_PalletJackB_01</uri>
-        </include>
-        <pose frame=''>-0.276098 -9.481944 0.023266 0 0 0</pose>
-	</model>  -->
-
     	
     <light name="Warehouse_CeilingLight_003" type="point">
       <pose frame="">0 0 9 0 0 0</pose>
@@ -252,6 +236,11 @@
       <name>receptacle_box</name>
       <pose>1.4 0.8 0.0 0 0 0</pose>
     </include>
+    
+    <include>
+      <uri>model://sgabuzzino</uri>
+      <name>il_mio_sgabuzzino_1</name>
+      <pose>-0.8 -8.0 0 0 0 3.14</pose> </include>
 
 
   </world>

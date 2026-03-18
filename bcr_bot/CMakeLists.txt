@@ -10,7 +10,10 @@ install(DIRECTORY launch meshes models urdf worlds rviz
 install(DIRECTORY config/
          DESTINATION share/${PROJECT_NAME}/config)
          
-install(PROGRAMS scripts/remapper.py 
+install(PROGRAMS scripts/remapper.py
+    scripts/ostacolo_dinamico.py
+    scripts/back_and_forth.py
+    scripts/visual_coordinator.py 
         DESTINATION lib/${PROJECT_NAME})
 
 ament_package()

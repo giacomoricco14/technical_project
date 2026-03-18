@@ -1,12 +1,19 @@
 ### Configuration
 
+```bash
+sudo apt update
+sudo apt install ros-humble-slam-toolbox
+colcon build
+source install/setup.bash
+```
+
 The launch file accepts multiple launch arguments,
 ```bash
 ros2 launch bcr_bot ign.launch.py \
 	camera_enabled:=True \
 	stereo_camera_enabled:=False \
 	two_d_lidar_enabled:=True \
-	position_x:=-1.5 \
+	position_x:=-2.5 \
 	position_y:=0.0  \
 	orientation_yaw:=0.0 \
 	odometry_source:=world \
@@ -19,16 +26,19 @@ SLAM Toolbox is an open-source package designed to map the environment using las
 
 To start mapping:
 ```bash
+source install/setup.bash
 ros2 launch bcr_bot mapping.launch.py
 ```
 
 Use the teleop twist keyboard to control the robot and map the area:
 ```bash
+source install/setup.bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard cmd_vel:=/bcr_bot/cmd_vel
 ```
 
 To save the map:
 ```bash
+source install/setup.bash
 cd src/bcr_bot/config
 ros2 run nav2_map_server map_saver_cli -f bcr_map
 ```
@@ -86,28 +96,34 @@ Then in another terminal, the node that spawns dynamically an obstacle is launch
 
 ```bash
 . install/setup.bash
-cd src/my-final-project/bcr_bot/scripts
-python3 ostacolo_dinamico.py
+ros2 run bcr_bot ostacolo_dinamico.py
 ```	
 	
 Then in another terminal, the node that starts the motion of the differential drive robot is launched:	
 
 ```bash
 . install/setup.bash
-cd src/my-final-project/bcr_bot/scripts
-python3 back_and_forth.py
+ros2 run bcr_bot back_and_forth.py
 ```	
 	
 Then in another terminal, the node that handles the visual coordination and pick and place task is launched:	
 
 ```bash
 . install/setup.bash
-cd src/my-final-project/bcr_bot/scripts
-python3 visual_coordinator.py
+ros2 run bcr_bot visual_coordinator.py
 ```		
 
+To start all with a single launchfile, after step zero, you can also execute:
 
-	
+```bash
+ros2 launch bcr_bot cooperative_task.py 
+```
+
+or, to test it without the obstacle:
+
+```bash
+ros2 launch bcr_bot cooperative_task.py use_obstacle=False
+```	
 	
 	
 	
